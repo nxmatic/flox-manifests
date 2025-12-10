@@ -1,37 +1,47 @@
-OUTPUT_DIR ?= $(CURDIR)/fleet
-KUSTOMIZE ?= kustomize
+OUTPUT_DIR ?= fleet
 YQ ?= yq
 DASEL ?= dasel
 PYTHON ?= python3
+KPT ?= kpt
 FIX_TOML ?= $(CURDIR)/bin/fix-toml-multiline.py
 FLEET_REMOTE ?= fleet
 FLEET_BRANCH ?= flox-subtree
+SETTERS_IMAGE ?= gcr.io/kpt-fn/apply-setters:v0.4.1
+SETTERS_CONFIG ?= setters.yaml
+FLEET_BASE_DIR ?= /var/lib/gits/nxmatic/fleet-manifests/flox
 
-SHELL := bash
+SHELL ?= bash
 .SHELLFLAGS := -exu -o pipefail -c
 .ONESHELL:
 
 .PRECIOUS: $(OUTPUT_DIR)/%/.flox/env $(OUTPUT_DIR)/%/.flox/run $(BUILD_YAML)
 
-FLOX_ENV_FILES := $(filter-out kustomization.yaml,$(wildcard *.yaml))
+FLOX_ENV_FILES := $(filter-out kustomization.yaml Kptfile setters.yaml,$(wildcard *.yaml))
 FLOX_ENV_NAMES := $(basename $(notdir $(FLOX_ENV_FILES)))
-KUSTOMIZE_SOURCES := kustomization.yaml $(FLOX_ENV_FILES)
+PKG_SOURCES := Kptfile $(SETTERS_CONFIG) $(FLOX_ENV_FILES)
 BUILD_YAML := $(OUTPUT_DIR)/.kustomize/flox.yaml
 
 MANIFEST_TARGETS := $(addprefix $(OUTPUT_DIR)/,$(addsuffix /.flox/env/manifest.toml,$(FLOX_ENV_NAMES)))
 ENV_JSON_TARGETS := $(addprefix $(OUTPUT_DIR)/,$(addsuffix /.flox/env.json,$(FLOX_ENV_NAMES)))
 RENDER_TARGETS := $(MANIFEST_TARGETS) $(ENV_JSON_TARGETS)
 
-.PHONY: all render check-tools fleet-remote fleet-pull fleet-push
+.PHONY: all render clean-dist check-tools fleet-remote fleet-pull fleet-push set-fleet-base-dir
+set-fleet-base-dir:
+	$(YQ) --inplace eval '.data["fleet-base-dir"] = "$(FLEET_BASE_DIR)"' "$(SETTERS_CONFIG)"
+	$(KPT) fn render "$(CURDIR)"
 
 all: render
 
-render: check-tools
+render: check-tools clean-dist
 	$(MAKE) $(RENDER_TARGETS)
+	touch "$(OUTPUT_DIR)/.placeholder"
+
+clean-dist:
+	@rm -rf "$(OUTPUT_DIR)"
 
 check-tools:
 	missing="";
-	for cmd in $(KUSTOMIZE) $(YQ) $(DASEL); do
+	for cmd in $(KPT) $(YQ) $(DASEL); do
 	  if ! command -v $$cmd >/dev/null 2>&1; then
 	    missing="$$missing $$cmd";
 	  fi;
@@ -41,9 +51,9 @@ check-tools:
 	  exit 1;
 	fi;
 
-$(BUILD_YAML): $(KUSTOMIZE_SOURCES)
+$(BUILD_YAML): $(PKG_SOURCES)
 	mkdir -p "$(dir $@)"
-	$(KUSTOMIZE) build $(CURDIR) > "$@"
+	$(KPT) fn render "$(CURDIR)" -o unwrap > "$@"
 
 $(OUTPUT_DIR)/%/.flox/env:
 	mkdir -p "$@"

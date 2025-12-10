@@ -30,7 +30,7 @@ spec:
         pkg-path: nix-fast-build
     include:
       environments:
-        - remote: nxmatic/keyhole
+        - dir: /var/lib/gits/nxmatic/fleet-manifests/flox/keyhole # kpt-set: ${fleet-base-dir}/keyhole
     options: {}
   env:
     name: nix

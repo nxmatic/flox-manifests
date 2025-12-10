@@ -19,7 +19,7 @@ spec:
         - aarch64-darwin
         - aarch64-linux
     profile:
-      common: |2
+      common: |
         mvnw_path="${FLOX_ENV_PROJECT}/mvnw"
         if [ -x "${mvnw_path}" ]; then
           maven_user_config="${FLOX_ENV_PROJECT}/.m2"
@@ -50,8 +50,8 @@ spec:
         fi
     include:
       environments:
-        - remote: nxmatic/xdg
-        - remote: nxmatic/keyhole
+        - dir: /var/lib/gits/nxmatic/fleet-manifests/flox/xdg # kpt-set: ${fleet-base-dir}/xdg
+        - dir: /var/lib/gits/nxmatic/fleet-manifests/flox/keyhole # kpt-set: ${fleet-base-dir}/keyhole
   env:
     name: home
     version: 1

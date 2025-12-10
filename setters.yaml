@@ -1,0 +1,6 @@
+apiVersion: fn.kpt.dev/v1alpha1
+kind: ApplySetters
+metadata:
+  name: fleet-base-dir
+data:
+  fleet-base-dir: /var/lib/gits/nxmatic/fleet-manifests/flox
