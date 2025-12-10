@@ -1,0 +1,31 @@
+apiVersion: flox.dev/v1alpha1
+kind: FloxEnvironment
+metadata:
+  name: keyhole
+spec:
+  manifest:
+    version: 1
+    install:
+      age:
+        pkg-path: age
+      ssh-to-age:
+        pkg-path: ssh-to-age
+      keychain:
+        pkg-path: keychain
+      gnupg:
+        pkg-path: gnupg
+      pass:
+        pkg-path: pass
+      sops:
+        pkg-path: sops
+    profile:
+      common: |
+        if [[ -r $XDG_STATE_HOME/ssh-keys.d/github_signing ]]; then
+          set -a
+          SOPS_AGE_KEY="$( ssh-to-age -private-key < $XDG_STATE_HOME/ssh-keys.d/github_signing )"
+          set +a
+        fi
+    options: {}
+  env:
+    name: keyhole
+    version: 1

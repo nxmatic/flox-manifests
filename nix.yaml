@@ -1,0 +1,37 @@
+apiVersion: flox.dev/v1alpha1
+kind: FloxEnvironment
+metadata:
+  name: nix
+spec:
+  manifest:
+    version: 1
+    install:
+      nixd:
+        pkg-path: nixd
+      nix-tree:
+        pkg-path: nix-tree
+      nixfmt-rfc-style:
+        pkg-path: nixfmt-rfc-style
+      statix:
+        pkg-path: statix
+      deadnix:
+        pkg-path: deadnix
+      nix-output-monitor:
+        pkg-path: nix-output-monitor
+      nix-eval-jobs:
+        pkg-path: nix-eval-jobs
+      cachix:
+        pkg-path: cachix
+      watchexec:
+        pkg-path: watchexec
+      nvfetcher:
+        pkg-path: nvfetcher
+      nix-fast-build:
+        pkg-path: nix-fast-build
+    include:
+      environments:
+        - remote: nxmatic/keyhole
+    options: {}
+  env:
+    name: nix
+    version: 1

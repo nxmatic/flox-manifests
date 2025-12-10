@@ -1,0 +1,82 @@
+apiVersion: flox.dev/v1alpha1
+kind: FloxEnvironment
+metadata:
+  name: k8s
+spec:
+  manifest:
+    version: 1
+    install:
+      ceph-client:
+        pkg-path: ceph-client
+        pkg-group: kubectl-tools
+        systems:
+          - aarch64-linux
+      cilium-cli:
+        pkg-path: cilium-cli
+        pkg-group: kubectl-tools
+      dasel:
+        pkg-path: dasel
+        version: ^2.8.1
+        pkg-group: yaml-tools
+      etcdctl:
+        pkg-path: etcdctl
+        version: ^3.3.27
+        pkg-group: etcd-tools
+      fluxcd:
+        pkg-path: fluxcd
+        pkg-group: kubectl-tools
+      helmfile:
+        pkg-path: helmfile
+        pkg-group: kubectl-tools
+      kubernetes-helm:
+        pkg-path: kubernetes-helm
+        pkg-group: kubectl-tools
+      kubectl:
+        pkg-path: kubectl
+        pkg-group: kubectl-tools
+      krew:
+        pkg-path: krew
+        pkg-group: kubectl-tools
+      kubectl-ai:
+        pkg-path: kubectl-ai
+        pkg-group: kubectl-plugins
+      kubectl-ktop:
+        pkg-path: kubectl-ktop
+        pkg-group: kubectl-plugins
+      kubectl-neat:
+        pkg-path: kubectl-neat
+        pkg-group: kubectl-plugins
+      kubectl-tree:
+        pkg-path: kubectl-tree
+        pkg-group: kubectl-plugins
+      kubectl-graph:
+        pkg-path: kubectl-graph
+        pkg-group: kubectl-plugins
+      kubecectl-doctor:
+        pkg-path: kubectl-doctor
+        pkg-group: kubectl-plugins
+      kubectl-explore:
+        pkg-path: kubectl-explore
+        pkg-group: kubectl-plugins
+      kubectl-rook-ceph:
+        pkg-path: kubectl-rook-ceph
+        pkg-group: kubectl-plugins
+      kubectl-view-secret:
+        pkg-path: kubectl-view-secret
+        pkg-group: kubectl-plugins
+      tubekit:
+        pkg-path: tubekit
+        pkg-group: kubectl-tools
+      yq-go:
+        pkg-path: yq-go
+        pkg-group: yaml-tools
+      kpt:
+        pkg-path: kpt
+        pkg-group: kpt-tools
+    options:
+      systems:
+        - aarch64-darwin
+        - aarch64-linux
+  env:
+    name: k8s
+    version: 1
