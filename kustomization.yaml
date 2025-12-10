@@ -7,3 +7,4 @@ resources:
   - keyhole.yaml
   - lima.yaml
   - nix.yaml
+  - xdg.yaml

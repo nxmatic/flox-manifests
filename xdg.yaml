@@ -1,0 +1,18 @@
+apiVersion: flox.dev/v1alpha1
+kind: FloxEnvironment
+metadata:
+  name: xdg
+spec:
+  manifest:
+   version: 1
+   install:
+     xdg-user-dirs:
+       pkg-path: xdg-user-dirs
+     xdg-utils:
+       pkg-path: xdg-utils
+     xdg-ninja:
+       pkg-path: xdg-ninja
+   options: {}
+  env:
+    name: xdg
+    version: 1
