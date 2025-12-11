@@ -17,9 +17,17 @@ def maybe_multiline(match: re.Match[str]) -> str:
     decoded = decode_escaped(value).rstrip("\n")
     indent = match.group("indent")
     key = match.group("key")
-    # Preserve YAML block indentation so multiline bodies stay aligned.
+    # Preserve YAML-style indentation by indenting body lines one level deeper
+    # than the key so profile and hook scripts stay readable.
+    continuation_indent = indent + "  " if indent else ""
     body_lines = decoded.split("\n")
-    indented_body = "\n".join(f"{indent}{line}" if line else indent for line in body_lines)
+    if continuation_indent:
+        indented_body = "\n".join(
+            f"{continuation_indent}{line}" if line else continuation_indent
+            for line in body_lines
+        )
+    else:
+        indented_body = decoded
     return f"{indent}{key} = \"\"\"\n{indented_body}\n{indent}\"\"\""
 
 def fix_file(path: pathlib.Path) -> None:
