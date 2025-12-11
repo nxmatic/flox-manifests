@@ -1,0 +1,22 @@
+apiVersion: flox.dev/v1alpha1
+kind: FloxEnvironment
+metadata:
+  name: manifest-tools
+spec:
+  manifest:
+    version: 1
+    install:
+      dasel:
+        pkg-path: dasel
+        version: ^2.8.1
+        pkg-group: yaml-tools
+      yq-go:
+        pkg-path: yq-go
+        pkg-group: yaml-tools
+    options:
+      systems:
+        - aarch64-darwin
+        - aarch64-linux
+  env:
+    name: manifest-tools
+    version: 1

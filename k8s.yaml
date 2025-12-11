@@ -73,6 +73,9 @@ spec:
       kpt:
         pkg-path: kpt
         pkg-group: kpt-tools
+    include:
+      environments:
+        - dir: /var/lib/git/nxmatic/fleet-manifests/flox/manifest-tools # kpt-set: ${fleet-base-dir}/manifest-tools
     options:
       systems:
         - aarch64-darwin

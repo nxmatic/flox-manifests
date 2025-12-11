@@ -8,7 +8,7 @@ FLEET_REMOTE ?= fleet
 FLEET_BRANCH ?= flox-subtree
 SETTERS_IMAGE ?= gcr.io/kpt-fn/apply-setters:v0.4.1
 SETTERS_CONFIG ?= setters.yaml
-FLEET_BASE_DIR ?= /var/lib/gits/nxmatic/fleet-manifests/flox
+FLEET_BASE_DIR ?= /var/lib/git/nxmatic/fleet-manifests/flox
 
 SHELL ?= bash
 .SHELLFLAGS := -exu -o pipefail -c
