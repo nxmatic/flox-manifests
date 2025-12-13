@@ -33,7 +33,7 @@ spec:
         PATH="/run/wrappers/bin:$PATH"      
     include:
       environments:
-        - dir: /var/lib/git/nxmatic/fleet-manifests/flox/keyhole # kpt-set: ${fleet-base-dir}/keyhole
+        - dir: /var/lib/git/nxmatic/fleet/flox/keyhole # kpt-set: ${fleet-base-dir}/keyhole
     options: {}
   env:
     name: nix

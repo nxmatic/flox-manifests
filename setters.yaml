@@ -3,4 +3,4 @@ kind: ApplySetters
 metadata:
   name: fleet-base-dir
 data:
-  fleet-base-dir: /var/lib/git/nxmatic/fleet-manifests/flox
+  fleet-base-dir: /var/lib/git/nxmatic/fleet/flox

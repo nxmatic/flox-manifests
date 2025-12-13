@@ -20,8 +20,8 @@ spec:
         - aarch64-linux
     include:
       environments:
-        - dir: /var/lib/git/nxmatic/fleet-manifests/flox/xdg # kpt-set: ${fleet-base-dir}/xdg
-        - dir: /var/lib/git/nxmatic/fleet-manifests/flox/keyhole # kpt-set: ${fleet-base-dir}/keyhole
+        - dir: /var/lib/git/nxmatic/fleet/flox/xdg # kpt-set: ${fleet-base-dir}/xdg
+        - dir: /var/lib/git/nxmatic/fleet/flox/keyhole # kpt-set: ${fleet-base-dir}/keyhole
   env:
     name: home
     version: 1
